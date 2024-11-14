@@ -14,7 +14,7 @@ function Layout() {
 
       <Header />
 
-      <section className="bg-[#EDFFD6] min-h-screen">
+      <section className="min-h-screen bg-[#EDFFD6]">
         <Outlet />
       </section>
 

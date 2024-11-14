@@ -7,24 +7,24 @@ const useMissionsMutation = () => {
   const queryClient = useQueryClient();
 
   const doMission = useMutation({
-    mutationFn: async ({ missionUuid } : { missionUuid: string }) => {
-      console.log("🚀 ~ mutationFn: ~ missionUuid:", missionUuid)
-      return axiosInstance.get(`api/v1/missions/${missionUuid}/do`);
+    mutationFn: async ({ missionId }: { missionId: string }) => {
+      console.log("🚀 ~ mutationFn: ~ missionUuid:", missionId);
+      return axiosInstance.get(`api/v1/missions/do/${missionId}`);
     },
-    onSuccess: async ({data}) => {
+    onSuccess: async ({ data }) => {
       if (data.success) {
         await new Promise((resolve) => setTimeout(resolve, 10000));
         await queryClient.invalidateQueries([QUERY_KEY.FETCH_MISSIONS]);
       }
     },
     onError: async (data: any) => {
-      toast.error(data.response.data.message)
-    }
-  })
+      toast.error(data.response.data.message);
+    },
+  });
 
   return {
-    doMission
-  }
-}
+    doMission,
+  };
+};
 
 export default useMissionsMutation;
