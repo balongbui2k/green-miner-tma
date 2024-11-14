@@ -2,30 +2,25 @@ import { QUERY_KEY } from "@/data/keys.ts";
 import axiosInstance from "@/utils/axios-instance.ts";
 import { useQuery } from "@tanstack/react-query";
 
-export enum MissionType {
-  DEFAULT = "DEFAULT",
-  ADD_ICON = "ADD_ICON",
-}
 export type Mission = {
-  uuid: string;
-  project: string;
-  platform: string;
-  image: string;
-  link: string;
-  actionLink: string;
-  reward: number;
-  type: MissionType;
+  action_link: string;
   content: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string | null;
-  userMissions: any[]; // You can replace `any` with the appropriate type
-  completed: boolean;
+  created_at: string;
+  deteled_at: string | null;
+  id: string;
+  image: string;
+  is_completed: boolean;
+  link: string;
+  platform: string;
+  project: string;
+  reward: number;
+  updated_at: string;
+  user_missions: any[];
 };
 
 export const fetchMissions = async () => {
   try {
-    const res = await axiosInstance.get<Mission[]>(`/api/v1/users/missions`);
+    const res = await axiosInstance.get<Mission[]>(`api/v1/missions/users`);
     if (res.status !== 200) {
       throw new Error("Error while fetching friends");
     }
