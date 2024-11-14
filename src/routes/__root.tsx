@@ -1,14 +1,14 @@
 import useAuthMutation from "@/data/useAuthMutation.ts";
 import useProfile from "@/data/useProfile.ts";
 import useReferralMutation from "@/data/useReferralMutation.ts";
-import { initGA } from "@/utils/analytics.js";
+// import { initGA } from "@/utils/analytics.js";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 // import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
-const googleAnalyticsID = import.meta.env.VITE_REACT_GA_ID;
+// const googleAnalyticsID = import.meta.env.VITE_REACT_GA_ID;
 const devModeEnabled =
   import.meta.env.VITE_REACT_APP_DEV_MODE === "true" ? true : false;
 
@@ -68,7 +68,7 @@ function Root() {
 
   useEffect(() => {
     if (signInCompleted && profileLoaded && startParam) {
-      if (profile?.ref) {
+      if (profile?.ref_by) {
         return;
       }
 
