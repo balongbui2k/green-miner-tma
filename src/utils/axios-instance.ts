@@ -5,7 +5,8 @@ import axios, {
 } from "axios";
 
 const API_BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL;
-const devModeEnabled = import.meta.env.VITE_REACT_APP_DEV_MODE === "true" ? true : false;
+const devModeEnabled =
+  import.meta.env.VITE_REACT_APP_DEV_MODE === "true" ? true : false;
 
 // let refreshTokenCount = 0;
 
@@ -22,8 +23,8 @@ axiosInstance.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    if (devModeEnabled)  {
-      console.log("🚀 ~ devModeEnabled:", devModeEnabled)
+    if (devModeEnabled) {
+      console.log("🚀 ~ devModeEnabled:", devModeEnabled);
       const fakeToken = import.meta.env.VITE_REACT_APP_DEV_TOKEN;
       config.headers.Authorization = `Bearer ${fakeToken}`;
     }

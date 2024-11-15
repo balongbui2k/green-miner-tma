@@ -31,7 +31,7 @@ const DailyTasks = () => {
               <img
                 src={task.image}
                 alt="image"
-                className="bg-white border border-black rounded-xl shadow-[3px_3px_black]  w-10 h-10"
+                className="bg-white border border-black rounded-xl shadow-[3px_3px_black] w-10 h-10"
                 draggable={false}
               />
 
