@@ -10,7 +10,7 @@ const useAuthMutation = () => {
         initData,
       }),
     onSuccess: async (result) => {
-      if (!result || result.status !== 201) {
+      if (!result || result.status !== 200) {
         toast.error("Unable to sign in");
       } else {
         if (result.data) {
