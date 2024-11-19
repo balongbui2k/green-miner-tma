@@ -24,10 +24,10 @@ if (!devModeEnabled) {
 export const Route = createRootRoute({
   component: Root,
   notFoundComponent: () => (
-    <div>
+    <>
       <h1>404 Not Found</h1>
       <Link to="/">Go to Home</Link>
-    </div>
+    </>
   ),
 });
 
@@ -73,12 +73,17 @@ function Root() {
       }
 
       registerRef.mutate({
-        referralCode: startParam,
+        code: startParam,
       });
     }
   }, [signInCompleted, profileLoaded, startParam]);
 
-  if (isLoading) return null;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-screen bg-white">
+        <h1 className="text-black text-base dm-mono-medium">Loading...</h1>
+      </div>
+    );
 
   return (
     <main>
