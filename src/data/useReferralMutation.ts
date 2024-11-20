@@ -4,9 +4,9 @@ import { toast } from "react-hot-toast";
 
 const useReferralMutation = () => {
   const registerRef = useMutation({
-    mutationFn: ({ referralCode }: { referralCode: string }) =>
+    mutationFn: ({ code }: { code: string }) =>
       axiosInstance.post(`api/v1/users/ref`, {
-        referralCode,
+        code,
       }),
     onSuccess: async (result) => {
       if (!result || result.status !== 201) {

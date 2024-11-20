@@ -5,7 +5,8 @@ import { THEME, TonConnectUIProvider } from "@tonconnect/ui-react";
 import ReactDOM from "react-dom/client";
 
 // this manifest is used temporarily for development purposes
-const manifestUrl = "https://rabbits.sgp1.digitaloceanspaces.com/tonconnect-manifest.json";
+const manifestUrl =
+  "https://green-miner.sgp1.cdn.digitaloceanspaces.com/tonconnect-manifest.json";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
@@ -20,7 +21,7 @@ import { logPageView } from "./utils/analytics.js";
 const router = createRouter({ routeTree });
 
 router.history.subscribe(() => {
-  const url = router.history.location.href
+  const url = router.history.location.href;
   // your Favorite Analytics code here
   logPageView(url);
 });

@@ -1,32 +1,92 @@
 import { cn } from "@/utils/index.tsx";
-import { minerPlans } from "@/data/test/index.ts";
+import { useState } from "react";
+import usePlans, { type Plan } from "@/data/usePlans.ts";
+import eco from "@/assets/images/miner-plans/eco.png";
+import ecoLayer from "@/assets/images/miner-plans/eco-layer.png";
+import standard from "@/assets/images/miner-plans/standard.png";
+import standardLayer from "@/assets/images/miner-plans/standard-layer.png";
+import gold from "@/assets/images/miner-plans/gold.png";
+import goldLayer from "@/assets/images/miner-plans/gold-layer.png";
+import { useTonConnect } from "@/hooks/useTonConnect.ts";
+import { useTonConnectUI } from "@tonconnect/ui-react";
+import { SpinIcon } from "@/components/icon.tsx";
+import { beginCell } from "ton-core";
+import useProfile from "@/data/useProfile";
+
+const TON_DESTINATION_ADDRESS = import.meta.env
+  .VITE_REACT_APP_TON_DESTINATION_ADDRESS;
 
 const MinerPlanCard = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const { data: plans } = usePlans();
+  const { data: profile } = useProfile();
+
+  const { connected } = useTonConnect();
+  const [tonConnectUI] = useTonConnectUI();
+
+  const handlePurchaseTON = async (plan: Plan) => {
+    if (!connected) {
+      await tonConnectUI?.openModal();
+      return;
+    }
+
+    const body = beginCell()
+      .storeUint(0, 32)
+      .storeStringTail(`${profile?.id}:${plan.id}:1`)
+      .endCell();
+
+    try {
+      setLoading(true);
+      const result = await tonConnectUI.sendTransaction({
+        validUntil: Math.floor(Date.now() / 1000) + 600, // 5 minutes for user to approve,
+        messages: [
+          {
+            address: TON_DESTINATION_ADDRESS,
+            amount: `${0.1 * 1e9}`,
+            payload: body.toBoc().toString("base64"),
+          },
+        ],
+      });
+      console.log("🚀 ===== result:", result);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="space-y-7">
-      {minerPlans.map((miner) => {
+      {plans?.map((miner) => {
+        const planImage = { 1: eco, 2: standard, 3: gold }[miner.id] || "";
+        const planLayerImage =
+          { 1: ecoLayer, 2: standardLayer, 3: goldLayer }[miner.id] || "";
+        const backgroundColor =
+          { 1: "#FFFFFF", 2: "#FFFFCE", 3: "#FDF400" }[miner.id] || "";
+
         return (
           <div
-            key={miner.plan}
+            key={miner.id}
             className="bg-[#CAFFC3] rounded-xl border border-black shadow-[5px_5px_black] px-5 py-3 relative z-[1]"
           >
             <div className="flex items-center gap-x-5 mb-2.5 ">
               <img
-                src={miner.icon}
+                src={planImage}
                 alt="eco"
-                style={{ backgroundColor: miner.color }}
+                style={{ backgroundColor }}
                 draggable={false}
                 className={cn(
                   "p-3 rounded-xl border border-black shadow-[3px_3px_black]"
                 )}
               />
               <h1 className="dm-mono-medium text-base text-black">
-                {miner.plan} Plan
+                {miner.name}
               </h1>
             </div>
 
             <img
-              src={miner.layer}
+              src={planLayerImage}
               alt="layer"
               className="absolute right-0 bottom-0"
               draggable={false}
@@ -40,31 +100,45 @@ const MinerPlanCard = () => {
                     {miner.speed} GH/z
                   </span>
                 </p>
+
                 <p className="flex items-center justify-between dm-mono-light text-xs">
-                  Availability:
+                  Stock:
                   <span className="text-sm dm-mono-medium text-[#009C0D]">
-                    {miner.availability}
+                    {miner.stock > 1 ? "Available" : "Sold Out"}
                   </span>
                 </p>
+
                 <p className="flex items-center justify-between dm-mono-light text-xs">
                   Withdrawal:
                   <span className="text-sm dm-mono-medium text-[#009C0D]">
-                    {miner.withdrawal}
+                    {/* {miner.} */}
                   </span>
                 </p>
                 <p className="flex items-center justify-between dm-mono-light text-xs">
                   Contract:
                   <span className="text-sm dm-mono-medium text-[#009C0D]">
-                    {miner.contract}
+                    {miner.contract_time}{" "}
+                    {miner.contract_time < 1 ? "day" : "days"}
                   </span>
                 </p>
               </div>
-
               <button
-                className="bg-[#43FF46] rounded-xl py-2.5 px-5 border z-[1] border-black transition-all duration-75 ease-linear will-change-auto shadow-[3px_3px_black] text-xs dm-mono-medium text-black
-              active:shadow-none active:translate-x-[3px] active:translate-y-[3px]"
+                onClick={() => handlePurchaseTON(miner)}
+                disabled={loading}
+                className={cn(
+                  "rounded-xl py-2.5 px-5 border z-[1] border-black text-xs dm-mono-medium text-black",
+                  loading
+                    ? "bg-[#B8B8B8]"
+                    : "bg-[#43FF46] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all duration-75 ease-linear will-change-auto shadow-[3px_3px_black]"
+                )}
               >
-                {miner.price} USD
+                {loading ? (
+                  <span>
+                    <SpinIcon />
+                  </span>
+                ) : (
+                  `${miner.price} USD`
+                )}
               </button>
             </div>
           </div>

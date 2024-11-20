@@ -1,9 +1,10 @@
 import { cn } from "@/utils/index.tsx";
-import { CartIcon, HomeIcon, PlusIcon } from "./icon.tsx";
+import { CalendarIcon, CartIcon, HomeIcon, PlusIcon } from "./icon.tsx";
 import { Link, useRouterState } from "@tanstack/react-router";
 
 const tabNavigator = [
   { linkTo: "/", icon: <HomeIcon /> },
+  { linkTo: "/daily-check-in", icon: <CalendarIcon /> },
   { linkTo: "/rent-miner", icon: <CartIcon /> },
   { linkTo: "/invite", icon: <PlusIcon /> },
 ];
@@ -14,7 +15,7 @@ const BottomNavigator = () => {
 
   return (
     <nav
-      className="fixed bottom-0 inset-x-0 py-5 px-9 w-full z-10 flex justify-between
+      className="fixed bottom-0 inset-x-0 p-5 w-full z-10 flex justify-between
     bg-white border-2 border-b-2 rounded-t-2xl border-black"
     >
       {tabNavigator.map(({ linkTo, icon }) => {
@@ -23,7 +24,7 @@ const BottomNavigator = () => {
             key={linkTo}
             to={linkTo}
             className={cn(
-              "rounded-xl border border-black p-2.5 flex items-center",
+              "rounded-xl border border-black p-2.5 flex items-center outline-none",
               currentRoute === linkTo &&
                 "bg-[#43FF46] rounded-xl border border-black transition-all will-change-auto ease-linear duration-75 shadow-[3px_3px_black]"
             )}

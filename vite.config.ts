@@ -11,8 +11,13 @@ export default defineConfig({
     TanStackRouterVite({
       addExtensions: true,
     }),
-    // nodePolyfills(),
+    nodePolyfills(),
   ],
+  build: {
+    commonjsOptions: {
+      include: ["node_modules/buffer/index.js"],
+    },
+  },
   base: ((process.env.GITHUB_REPOSITORY ?? "") + "/").match(/(\/.*)/)?.[1],
   resolve: {
     alias: {
