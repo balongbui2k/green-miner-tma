@@ -3,8 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import TokenInfoBanner from "@/components/ui/home/token-info-banner.tsx";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import Participate from "@/components/ui/home/participate.tsx";
-import Todo from "@/components/ui/home/todo.tsx";
+// import Todo from "@/components/ui/home/todo.tsx";
 import useProfile from "@/data/useProfile.ts";
+import Header from "@/components/header.tsx";
 
 export const Route = createFileRoute("/_layout/")({
   component: Home,
@@ -51,20 +52,24 @@ function Home() {
   return (
     <section
       ref={listRef}
-      className="w-full py-5 overflow-y-auto scroll-smooth no-scrollbar px-5"
       style={{ height: listHeight }}
+      className="w-full overflow-y-auto scroll-smooth no-scrollbar"
     >
-      <TokenInfoBanner profile={profile} />
+      <Header />
 
-      <Participate
-        tonAddress={tonAddress}
-        participants={participants}
-        handleConnectWalletClick={handleConnectWalletClick}
-      />
+      <div className="p-4">
+        <TokenInfoBanner profile={profile} />
 
-      <hr className="my-5 border border-black mx-4" />
+        <Participate
+          tonAddress={tonAddress}
+          participants={participants}
+          handleConnectWalletClick={handleConnectWalletClick}
+        />
+      </div>
 
-      <Todo />
+      {/* <hr className="my-5 border border-black mx-4" /> */}
+
+      {/* <Todo /> */}
     </section>
   );
 }

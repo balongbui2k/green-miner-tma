@@ -1,37 +1,47 @@
 import { createFileRoute } from "@tanstack/react-router";
-// import { toast } from "react-hot-toast";
-// import useProfile from "@/data/useProfile.ts";
 import Earning from "@/components/ui/invite/earning.tsx";
 import DailyTasks from "@/components/ui/invite/daily-tasks.tsx";
+import { useRef, useState, useEffect } from "react";
+import Header from "@/components/header";
 
 export const Route = createFileRoute("/_layout/invite")({
   component: Invite,
 });
 
-// const botName = import.meta.env.VITE_REACT_APP_BOT_NAME;
-
 function Invite() {
-  // const { data: profile } = useProfile();
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const [listHeight, setListHeight] = useState<string>("auto");
 
-  // const copyLink = () => {
-  //   navigator.clipboard.writeText(
-  //     `https://t.me/${botName}/run?startapp=${profile?.telegramId}`
-  //   );
-  //   toast.success("Link copied to clipboard");
-  // };
+  useEffect(() => {
+    const updateHeight = () => {
+      if (listRef.current) {
+        const windowHeight = window.innerHeight;
+        const listTop = listRef.current.getBoundingClientRect().top;
+        const navBarHeight = 86;
+        const newHeight = Math.round(windowHeight - listTop - navBarHeight);
+        setListHeight(`${newHeight}px`);
+      }
+    };
 
-  // const handleShareButton = () => {
-  //   const url = `https://t.me/${botName}/run?startapp=${profile?.telegramId}`;
-  //   const text = "Rabbits running on the jungle";
-  //   const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
-  //   window.open(telegramUrl, "_blank", "noopener,noreferrer");
-  // };
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+
+    return () => window.removeEventListener("resize", updateHeight);
+  }, [listHeight]);
 
   return (
-    <section className="py-16 px-4 overflow-y-auto h-[calc(100vh-280px)] scroll-smooth no-scrollbar">
-      <Earning />
+    <section
+      ref={listRef}
+      style={{ height: listHeight }}
+      className="overflow-y-auto scroll-smooth no-scrollbar"
+    >
+      <Header />
 
-      <DailyTasks />
+      <div className="px-4 py-14">
+        <Earning />
+
+        <DailyTasks />
+      </div>
     </section>
   );
 }

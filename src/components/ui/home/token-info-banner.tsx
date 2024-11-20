@@ -1,5 +1,5 @@
 import headerLayout from "@/assets/images/header-layout.png";
-import { ArrowUpIcon, TonIcon } from "@/components/icon.tsx";
+import { ArrowUpIcon, Logo, TonIcon } from "@/components/icon.tsx";
 import type { Profile } from "@/data/useProfile.ts";
 import { formatCurrency } from "@/utils/index.tsx";
 
@@ -12,13 +12,15 @@ const TokenInfoBanner = ({ profile }: { profile: Profile | undefined }) => {
         className="absolute right-0 bottom-0"
       />
 
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-start justify-between mb-5">
         <p className="dm-mono-medium text-2xl flex flex-col">
           {profile ? formatCurrency(profile?.balance, 2) : "---"}
           <span className="text-[#A1A1A1] text-sm dm-mono-medium">$GREEN</span>
         </p>
 
-        <div className="bg-[#ABFF83] rounded-full w-8 h-8 shadow-[4px_1px_black] border border-black z-[1]" />
+        <span className="bg-[#ABFF83] rounded-full shadow-[4px_1px_black] border border-black z-[1] p-1.5 w-fit">
+          <Logo width={16} height={18} />
+        </span>
       </div>
 
       <p className="dm-mono-medium text-sm mb-2">Balance</p>
