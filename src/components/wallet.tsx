@@ -7,7 +7,6 @@ import {
 } from "@tonconnect/ui-react";
 import { useTonConnect } from "@/hooks/useTonConnect";
 import { cn } from "@/utils";
-import { useNavigate } from "@tanstack/react-router";
 import toast from "react-hot-toast";
 import useWalletAddressMutation from "@/data/useAdressMutation";
 import ToastComponent from "./common/toast";
@@ -21,7 +20,6 @@ const WalletComponent = () => {
 
   const [tonConnectUI] = useTonConnectUI();
   const address = useTonAddress();
-  const navigate = useNavigate();
 
   const handleDisconnect = () => {
     // Disconnect the wallet and set connection state to false
@@ -74,15 +72,6 @@ const WalletComponent = () => {
               className="w-full h-full max-w-10 max-h-10 object-cover"
             />
           </button>
-
-          {/* <button
-            className="absolute -top-2.5 left-14 flex justify-center bg-[url(/assets/home/connect-wallet-container.svg)] bg-cover bg-no-repeat bg-center w-[176px] h-[43px] px-2"
-            onClick={() => navigate({ to: "/daily-purchase" })}
-          >
-            <span className="text-primary text-sm font-normal my-auto">
-              + Get more $HAPPY
-            </span>
-          </button> */}
         </div>
       ) : (
         <TonConnectButton
