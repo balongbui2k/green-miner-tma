@@ -1,36 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import TokenInfoBanner from "@/components/ui/home/token-info-banner.tsx";
-import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
-import Participate from "@/components/ui/home/participate.tsx";
-// import Todo from "@/components/ui/home/todo.tsx";
 import useProfile from "@/data/useProfile.ts";
 import Header from "@/components/header.tsx";
+import MinerDisplay from "@/components/ui/home/miner-display";
 
 export const Route = createFileRoute("/_layout/")({
   component: Home,
 });
 
-const participants = "5,469,519";
-
 function Home() {
   const listRef = useRef<HTMLDivElement | null>(null);
   const [listHeight, setListHeight] = useState<string>("auto");
 
-  const tonAddress = useTonAddress();
-  const [tonConnectUI] = useTonConnectUI();
-
   const { data: profile } = useProfile();
-
-  const handleConnectWalletClick = async () => {
-    try {
-      if (!tonAddress) {
-        await tonConnectUI.openModal();
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
 
   useEffect(() => {
     const updateHeight = () => {
@@ -53,23 +36,15 @@ function Home() {
     <section
       ref={listRef}
       style={{ height: listHeight }}
-      className="w-full overflow-y-auto scroll-smooth no-scrollbar"
+      className="w-full overflow-y-auto scroll-smooth no-scrollbar will-change-scroll"
     >
       <Header />
 
       <div className="p-4">
         <TokenInfoBanner profile={profile} />
 
-        <Participate
-          tonAddress={tonAddress}
-          participants={participants}
-          handleConnectWalletClick={handleConnectWalletClick}
-        />
+        <MinerDisplay />
       </div>
-
-      {/* <hr className="my-5 border border-black mx-4" /> */}
-
-      {/* <Todo /> */}
     </section>
   );
 }

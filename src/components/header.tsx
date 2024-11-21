@@ -5,7 +5,7 @@ import referrals from "@/assets/images/referrals.png";
 import { CHAIN, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import useProfile from "@/data/useProfile.ts";
 import { toast } from "react-hot-toast";
-import { cn, truncateFromMiddle } from "@/utils/index.tsx";
+import { truncateFromMiddle } from "@/utils/index.tsx";
 import ToastComponent from "./common/toast";
 import { useEffect } from "react";
 import { useTonConnect } from "@/hooks/useTonConnect";
@@ -109,11 +109,7 @@ const Header = () => {
           <button
             type="button"
             onClick={handleConnectWallet}
-            className={cn(
-              "dm-mono-medium text-xs",
-
-              "bg-white border border-black rounded-xl shadow-[3px_3px_black] z-[1] flex items-center justify-center gap-x-2.5 py-2.5 px-5 my-5 transition-all ease-linear duration-75 active:shadow-none active:translate-x-[3px] active:translate-y-[3px]"
-            )}
+            className="dm-mono-medium w-fit text-xs bg-white border border-black rounded-xl shadow-[3px_3px_black] z-[1] flex items-center justify-center gap-x-2.5 py-2 px-2.5 my-5 transition-all ease-linear duration-75 active:shadow-none active:translate-x-[3px] active:translate-y-[3px]"
           >
             <WalletIcon />
             Connect Wallet

@@ -14,11 +14,13 @@ const useMissionsMutation = () => {
     onSuccess: async ({ data }) => {
       if (data.success) {
         await new Promise((resolve) => setTimeout(resolve, 10000));
-        await queryClient.invalidateQueries([QUERY_KEY.FETCH_MISSIONS]);
+        await queryClient.invalidateQueries({
+          queryKey: [QUERY_KEY.FETCH_MISSIONS],
+        });
       }
     },
-    onError: async (data: any) => {
-      toast.error(data.response.data.message);
+    onError: async (error: any) => {
+      toast.error(error.response.data.message);
     },
   });
 
