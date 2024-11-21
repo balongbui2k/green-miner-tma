@@ -1,5 +1,5 @@
 import headerLayout from "@/assets/images/header-layout.png";
-import { ArrowUpIcon, Logo, TonIcon } from "@/components/icon.tsx";
+import { Logo, TonIcon } from "@/components/icon.tsx";
 import type { Profile } from "@/data/useProfile.ts";
 import { formatCurrency } from "@/utils/index.tsx";
 
@@ -30,15 +30,9 @@ const TokenInfoBanner = ({ profile }: { profile: Profile | undefined }) => {
           <TonIcon />
         </span>
 
-        <div className="flex items-center justify-between w-full">
-          <div className="flex flex-col text-black">
-            <p className="dm-mono-medium text-base">$TON</p>
-            <p className="dm-mono-regular text-sm">--- $TON</p>
-          </div>
-
-          <span className="text-black p-2.5 bg-[#43FF46] rounded-lg border border-black shadow-[3px_3px_black] z-[1]">
-            <ArrowUpIcon />
-          </span>
+        <div className="flex flex-col text-black">
+          <p className="dm-mono-medium text-base">$TON</p>
+          <p className="dm-mono-regular text-sm">--- $TON</p>
         </div>
       </div>
     </div>

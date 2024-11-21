@@ -1,36 +1,50 @@
 import { cn } from "@/utils/index.tsx";
 import { CalendarIcon, CartIcon, HomeIcon, PlusIcon } from "./icon.tsx";
-import { Link, useRouterState } from "@tanstack/react-router";
+import { useNavigate, useRouterState } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEY } from "@/data/keys.ts";
 
 const tabNavigator = [
-  { linkTo: "/", icon: <HomeIcon /> },
-  { linkTo: "/daily-check-in", icon: <CalendarIcon /> },
-  { linkTo: "/rent-miner", icon: <CartIcon /> },
-  { linkTo: "/invite", icon: <PlusIcon /> },
+  { path: "/", icon: <HomeIcon /> },
+  { path: "/daily-check-in", icon: <CalendarIcon /> },
+  { path: "/rent-miner", icon: <CartIcon /> },
+  { path: "/invite", icon: <PlusIcon /> },
 ];
 
 const BottomNavigator = () => {
   const router = useRouterState();
   const currentRoute = router.resolvedLocation.pathname;
 
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const handleNavigation = (path: string) => {
+    navigate({ to: path });
+
+    if (path === "/") {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.FETCH_MINER] });
+    }
+  };
+
   return (
     <nav
       className="fixed bottom-0 inset-x-0 p-5 w-full z-10 flex justify-between
     bg-white border-2 border-b-2 rounded-t-2xl border-black"
     >
-      {tabNavigator.map(({ linkTo, icon }) => {
+      {tabNavigator.map(({ path, icon }) => {
         return (
-          <Link
-            key={linkTo}
-            to={linkTo}
+          <button
+            type="button"
+            key={path}
+            onClick={() => handleNavigation(path)}
             className={cn(
               "rounded-xl border border-black p-2.5 flex items-center outline-none",
-              currentRoute === linkTo &&
+              currentRoute === path &&
                 "bg-[#43FF46] rounded-xl border border-black transition-all will-change-auto ease-linear duration-75 shadow-[3px_3px_black]"
             )}
           >
             <span className="text-black ">{icon}</span>
-          </Link>
+          </button>
         );
       })}
 
