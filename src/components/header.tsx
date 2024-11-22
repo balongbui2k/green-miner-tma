@@ -6,7 +6,7 @@ import { CHAIN, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import useProfile from "@/data/useProfile.ts";
 import { toast } from "react-hot-toast";
 import { truncateFromMiddle } from "@/utils/index.tsx";
-import ToastComponent from "./common/toast";
+// import ToastComponent from "./common/toast";
 import { useEffect } from "react";
 import { useTonConnect } from "@/hooks/useTonConnect";
 import useWalletAddressMutation from "@/data/useAdressMutation";
@@ -58,22 +58,22 @@ const Header = () => {
     }
 
     if (VITE_REACT_APP_TON_CHAIN_NETWORK !== currentNetwork) {
-      toast.custom(
-        (t) => (
-          <ToastComponent t={t} duration={3000}>
-            <div className="ml-1">
-              <p className="text-xs text-danger">Failed to connect</p>
-              <p className="text-primary text-base">
-                Wallet must be a valid wallet on Tonchain{" "}
-                {VITE_REACT_APP_TON_CHAIN_NETWORK === "mainnet"
-                  ? "Mainnet"
-                  : "Testnet"}
-              </p>
-            </div>
-          </ToastComponent>
-        ),
-        { duration: 3000 }
-      );
+      // toast.custom(
+      //   (t) => (
+      //     <ToastComponent t={t} duration={3000}>
+      //       <div className="ml-1">
+      //         <p className="text-xs text-danger">Failed to connect</p>
+      //         <p className="text-primary text-base">
+      //           Wallet must be a valid wallet on Tonchain{" "}
+      //           {VITE_REACT_APP_TON_CHAIN_NETWORK === "mainnet"
+      //             ? "Mainnet"
+      //             : "Testnet"}
+      //         </p>
+      //       </div>
+      //     </ToastComponent>
+      //   ),
+      //   { duration: 3000 }
+      // );
       handleDisconnect();
     }
 
