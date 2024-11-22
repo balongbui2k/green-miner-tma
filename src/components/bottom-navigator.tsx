@@ -28,7 +28,7 @@ const BottomNavigator = () => {
 
   return (
     <nav
-      className="fixed bottom-0 inset-x-0 p-5 w-full z-10 flex justify-between
+      className="fixed bottom-0 inset-x-0 px-5 pt-4 pb-8 w-full z-10 flex justify-between
     bg-white border-2 border-b-2 rounded-t-2xl border-black"
     >
       {tabNavigator.map(({ path, icon }) => {
