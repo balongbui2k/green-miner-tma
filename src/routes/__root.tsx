@@ -7,6 +7,7 @@ import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { retrieveLaunchParams } from "@telegram-apps/sdk";
+import Loader from "@/components/common/loader";
 
 // const googleAnalyticsID = import.meta.env.VITE_REACT_GA_ID;
 const devModeEnabled =
@@ -80,8 +81,11 @@ function Root() {
 
   if (isLoading)
     return (
-      <div className="flex justify-center items-center h-screen bg-white">
-        <h1 className="text-black text-base dm-mono-medium">Loading...</h1>
+      <div className="flex justify-center items-center h-screen bg-white gap-x-2">
+        <h1 className="text-black text-base dm-mono-medium">Loading</h1>
+        <div className="pt-3">
+          <Loader />
+        </div>
       </div>
     );
 
