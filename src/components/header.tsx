@@ -1,11 +1,7 @@
 import headerLayout from "@/assets/images/header-layout.png";
 import { useRouterState } from "@tanstack/react-router";
-import { CHAIN } from "@tonconnect/ui-react";
 import useProfile from "@/data/useProfile";
 import { toast } from "react-hot-toast";
-import { useEffect } from "react";
-
-import ToastComponent from "./common/toast";
 import HomeHeader from "@/components/ui/header/home";
 import InviteHeader from "@/components/ui/header/invite";
 import RentMinerHeader from "@/components/ui/header/rent-miner";
