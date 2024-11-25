@@ -75,7 +75,6 @@ const MinerDisplay = () => {
                   src={planImage}
                   style={{ backgroundColor: backgroundColor }}
                   alt="miner icon"
-                  draggable="false"
                   className="p-1.5 border border-black rounded-lg shadow-[3px_3px_black] w-8 h-8 object-cover"
                 />
                 <p className="text-black dm-mono-medium text-base pt-0.5">
@@ -97,15 +96,9 @@ const MinerDisplay = () => {
           src={cloudMining}
           alt="mining image"
           className="z-[1] object-cover"
-          draggable="false"
           loading="lazy"
         />
-        <img
-          src={cloudMiningLayer}
-          alt="minerLayer"
-          draggable="false"
-          className="absolute"
-        />
+        <img src={cloudMiningLayer} alt="minerLayer" className="absolute" />
       </div>
 
       <div className="border-2 border-black bg-[#D9D9D9] rounded-xl px-4 py-3">

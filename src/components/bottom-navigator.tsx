@@ -53,7 +53,7 @@ const BottomNavigator = () => {
         className="text-sm dm-mono-medium bg-[#43FF46] rounded-xl py-2.5 px-5 border border-black transition-all ease-linear duration-75
         shadow-[3px_3px_black] active:shadow-none active:translate-x-[3px] active:translate-y-[3px]"
       >
-        Mining
+        Your rig
       </button>
     </nav>
   );

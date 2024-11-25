@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import TokenInfoBanner from "@/components/ui/home/token-info-banner.tsx";
 import useProfile from "@/data/useProfile.ts";
-import Header from "@/components/header.tsx";
 import MinerDisplay from "@/components/ui/home/miner-display";
 
 export const Route = createFileRoute("/_layout/")({
@@ -38,8 +37,6 @@ function Home() {
       style={{ height: listHeight }}
       className="w-full overflow-y-auto scroll-smooth no-scrollbar will-change-scroll"
     >
-      <Header />
-
       <div className="p-4">
         <TokenInfoBanner profile={profile} />
 

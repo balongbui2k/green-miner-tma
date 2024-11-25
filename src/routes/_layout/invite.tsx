@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import Earning from "@/components/ui/invite/earning.tsx";
 import DailyTasks from "@/components/ui/invite/daily-tasks.tsx";
 import { useRef, useState, useEffect } from "react";
-import Header from "@/components/header";
 
 export const Route = createFileRoute("/_layout/invite")({
   component: Invite,
@@ -35,8 +34,6 @@ function Invite() {
       style={{ height: listHeight }}
       className="overflow-y-auto scroll-smooth no-scrollbar"
     >
-      <Header />
-
       <div className="px-4 py-14">
         <Earning />
 
