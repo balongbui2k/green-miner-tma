@@ -16,17 +16,24 @@ function Invite() {
       if (listRef.current) {
         const windowHeight = window.innerHeight;
         const listTop = listRef.current.getBoundingClientRect().top;
-        const navBarHeight = 86;
+        const navBarHeight = 96;
         const newHeight = Math.round(windowHeight - listTop - navBarHeight);
         setListHeight(`${newHeight}px`);
       }
     };
 
     updateHeight();
+
     window.addEventListener("resize", updateHeight);
 
-    return () => window.removeEventListener("resize", updateHeight);
-  }, [listHeight]);
+    const resizeObserver = new ResizeObserver(updateHeight);
+    if (listRef.current) resizeObserver.observe(listRef.current);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+      resizeObserver.disconnect();
+    };
+  }, []);
 
   return (
     <section
