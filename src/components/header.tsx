@@ -9,7 +9,6 @@ import ToastComponent from "./common/toast";
 import useWalletAddressMutation from "@/data/useAdressMutation";
 import HomeHeader from "@/components/ui/header/home";
 import InviteHeader from "@/components/ui/header/invite";
-import DailyCheckInHeader from "@/components/ui/header/daily-check-in";
 import RentMinerHeader from "@/components/ui/header/rent-miner";
 
 const botName = import.meta.env.VITE_REACT_APP_BOT_NAME;
