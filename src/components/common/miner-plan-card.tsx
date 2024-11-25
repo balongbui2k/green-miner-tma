@@ -55,7 +55,7 @@ const MinerPlanCard = () => {
       await logsMinerTransaction.mutateAsync({
         messageHash: hash,
         plan_id: plan.id,
-        quantity: 10,
+        quantity: 1,
       });
     } catch (e) {
       console.error(e);

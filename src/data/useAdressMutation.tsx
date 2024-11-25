@@ -1,7 +1,5 @@
-import ToastComponent from "@/components/common/toast.tsx";
 import axiosInstance from "@/utils/axios-instance.ts";
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
 
 const useWalletAddressMutation = () => {
   const updateWalletAddress = useMutation({
@@ -11,22 +9,23 @@ const useWalletAddressMutation = () => {
       }),
     onSuccess: async (result) => {
       if (!result || result.status !== 201) {
-        toast.custom(
-          (t) => <ToastComponent t={t} text={result.data.message} />,
-          {
-            duration: 1000,
-          }
-        );
+        // toast.custom(
+        //   (t) => <ToastComponent t={t} text={result.data.message} />,
+        //   {
+        //     duration: 1000,
+        //   }
+        // );
+        console.log("update-wallet-address", result.data.message);
       }
     },
     onError: (error: { response: { data: { message: string } } }) => {
       console.log("🚀 ===== error:", error);
-      toast.custom(
-        (t) => <ToastComponent t={t} text={error.response.data.message} />,
-        {
-          duration: 1000,
-        }
-      );
+      // toast.custom(
+      //   (t) => <ToastComponent t={t} text={error.response.data.message} />,
+      //   {
+      //     duration: 1000,
+      //   }
+      // );
     },
   });
 
