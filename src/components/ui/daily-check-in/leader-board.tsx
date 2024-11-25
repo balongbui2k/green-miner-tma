@@ -25,7 +25,8 @@ const LeaderBoard = () => {
                   <img
                     src={miner}
                     alt="miner"
-                    className="border border-black rounded-xl shadow-[3px_3px_black] "
+                    draggable="false"
+                    className="border border-black rounded-xl shadow-[3px_3px_black] object-cover"
                   />
                   <p className="dm-mono-medium text-base">{userName}</p>
                 </div>
@@ -65,7 +66,8 @@ const LeaderBoard = () => {
                   <img
                     src={miner}
                     alt="miner"
-                    className="border border-black rounded-xl shadow-[3px_3px_black] "
+                    draggable="false"
+                    className="border border-black rounded-xl shadow-[3px_3px_black] object-cover"
                   />
                   <div className="flex flex-col items-start ">
                     <p className="dm-mono-medium text-base">{userName}</p>
@@ -81,19 +83,28 @@ const LeaderBoard = () => {
                 </div>
 
                 <div>
-                  {index === 0 && <img src={firstPrize} alt="first prize" />}
+                  {index === 0 && (
+                    <img
+                      src={firstPrize}
+                      alt="first prize"
+                      draggable="false"
+                      className="object-cover"
+                    />
+                  )}
                   {index === 1 && (
                     <img
                       src={secondPrize}
                       alt="second prize"
-                      className="mr-0.5"
+                      className="mr-0.5 object-cover"
+                      draggable="false"
                     />
                   )}
                   {index === 2 && (
                     <img
                       src={thirdPrize}
                       alt="third prize"
-                      className="mr-1.5"
+                      className="mr-1.5 object-cover"
+                      draggable="false"
                     />
                   )}
                   {index > 2 && (

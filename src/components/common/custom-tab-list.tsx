@@ -98,10 +98,18 @@ export const TabPanel: React.FC<TabPanelProps> = ({ children, className }) => {
     };
 
     updateHeight();
+
     window.addEventListener("resize", updateHeight);
 
-    return () => window.removeEventListener("resize", updateHeight);
-  }, [listHeight]);
+    const resizeObserver = new ResizeObserver(updateHeight);
+    if (listRef.current) resizeObserver.observe(listRef.current);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+      resizeObserver.disconnect();
+    };
+  }, []);
+
   return (
     <div
       ref={listRef}
