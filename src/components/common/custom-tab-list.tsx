@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/index.tsx";
-import DailyCheckInHeader from "../ui/header/daily-check-in";
 
 interface TabsProps {
   activeTabIndex: number;
@@ -19,13 +18,10 @@ interface TabPanelProps {
   className?: string;
 }
 
-export const Tabs: React.FC<
-  TabsProps & { handleOpenBottomModal: () => void }
-> = ({
+export const Tabs: React.FC<TabsProps> = ({
   activeTabIndex,
   setActiveTabIndex,
   children,
-  handleOpenBottomModal,
 }) => {
   const tabs = React.Children.toArray(children).filter(
     (child) => (child as React.ReactElement).type === Tab
@@ -36,7 +32,7 @@ export const Tabs: React.FC<
 
   return (
     <div>
-      <TabList handleOpenBottomModal={handleOpenBottomModal}>
+      <TabList>
         {tabs.map((tab, index) => (
           <Tab
             key={index}
@@ -54,14 +50,10 @@ export const Tabs: React.FC<
 
 export const TabList: React.FC<{
   children: React.ReactNode;
-  handleOpenBottomModal: () => void;
-}> = ({ children, handleOpenBottomModal }) => {
+}> = ({ children }) => {
   return (
-    <div className="bg-[#73FF69] p-5 border-black border-b relative z-[2]">
-      <DailyCheckInHeader handleOpenBottomModal={handleOpenBottomModal} />
-      <div className="flex items-center whitespace-nowrap gap-x-2 mt-7">
-        {children}
-      </div>
+    <div className="flex items-center whitespace-nowrap gap-x-2 bg-[#73FF69] border-black border-b relative pl-5 pb-4 pt-3">
+      {children}
     </div>
   );
 };
@@ -70,7 +62,7 @@ export const Tab: React.FC<TabProps> = ({ children, isActive, onClick }) => {
   return (
     <button
       className={cn(
-        "w-fit bg-white border border-black rounded-xl py-2 px-5 shadow-[3px_3px_black] z-[1]",
+        "w-fit bg-white border border-black rounded-xl py-2 px-5 shadow-[3px_3px_black] z-[2]",
         !isActive
           ? "active:translate-x-[3px] translate-y-[3px]"
           : "shadow-none mt-2 bg-[#DFDFDF]"
@@ -82,44 +74,6 @@ export const Tab: React.FC<TabProps> = ({ children, isActive, onClick }) => {
   );
 };
 
-export const TabPanel: React.FC<TabPanelProps> = ({ children, className }) => {
-  const listRef = useRef<HTMLDivElement | null>(null);
-  const [listHeight, setListHeight] = useState<string>("auto");
-
-  useEffect(() => {
-    const updateHeight = () => {
-      if (listRef.current) {
-        const windowHeight = window.innerHeight;
-        const listTop = listRef.current.getBoundingClientRect().top;
-        const navBarHeight = 90;
-        const newHeight = Math.round(windowHeight - listTop - navBarHeight);
-        setListHeight(`${newHeight}px`);
-      }
-    };
-
-    updateHeight();
-
-    window.addEventListener("resize", updateHeight);
-
-    const resizeObserver = new ResizeObserver(updateHeight);
-    if (listRef.current) resizeObserver.observe(listRef.current);
-
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-      resizeObserver.disconnect();
-    };
-  }, []);
-
-  return (
-    <div
-      ref={listRef}
-      style={{ height: listHeight }}
-      className={cn(
-        "py-5 no-scrollbar overflow-y-auto scroll-smooth will-change-scroll",
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
+export const TabPanel: React.FC<TabPanelProps> = ({ children }) => {
+  return <div className="pt-5 py-7">{children}</div>;
 };

@@ -1,4 +1,3 @@
-import headerLayout from "@/assets/images/header-layout.png";
 import { QuestionMarkIcon } from "@/components/icon";
 
 const DailyCheckInHeader = ({
@@ -18,12 +17,6 @@ const DailyCheckInHeader = ({
           <QuestionMarkIcon size={11} />
         </span>
       </p>
-
-      <img
-        src={headerLayout}
-        alt="header-layout"
-        className="absolute right-0 bottom-0"
-      />
     </>
   );
 };

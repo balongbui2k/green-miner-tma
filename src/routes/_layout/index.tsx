@@ -3,6 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import TokenInfoBanner from "@/components/ui/home/token-info-banner.tsx";
 import useProfile from "@/data/useProfile.ts";
 import MinerDisplay from "@/components/ui/home/miner-display";
+import Header from "@/components/header";
+import usePendingReward, { type PendingReward } from "@/data/usePendingReward";
 
 export const Route = createFileRoute("/_layout/")({
   component: Home,
@@ -10,6 +12,24 @@ export const Route = createFileRoute("/_layout/")({
 
 function Home() {
   const { data: profile } = useProfile();
+  const { data: pendingReward } = usePendingReward();
+
+  const [userBalance, setUserBalance] = useState<number>(profile?.balance || 0);
+  const [claimReward, setClaimReward] = useState<PendingReward[]>(
+    pendingReward || []
+  );
+
+  const totalPendingReward = claimReward.reduce(
+    (sum, item) => sum + item.pending_reward,
+    0
+  );
+
+  const handleClaimReward = () => {
+    if (totalPendingReward > 0) {
+      setUserBalance((prevBalance) => prevBalance + totalPendingReward); // Cập nhật balance
+      setClaimReward([]); // Reset danh sách reward
+    }
+  };
 
   const listRef = useRef<HTMLDivElement | null>(null);
   const [listHeight, setListHeight] = useState<string>("auto");
@@ -44,10 +64,15 @@ function Home() {
       style={{ height: listHeight }}
       className="w-full overflow-y-auto scroll-smooth no-scrollbar will-change-scroll"
     >
-      <div className="p-4">
-        <TokenInfoBanner profile={profile} />
+      <Header />
 
-        <MinerDisplay />
+      <div className="p-4">
+        <TokenInfoBanner userBalance={userBalance} />
+
+        <MinerDisplay
+          claimReward={claimReward}
+          handleClaimReward={handleClaimReward}
+        />
       </div>
     </section>
   );

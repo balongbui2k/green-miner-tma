@@ -6,14 +6,22 @@ import Loader from "@/components/common/loader";
 import cloudMining from "@/assets/images/mining.gif";
 import cloudMiningLayer from "@/assets/images/cloud-mining.png";
 import useMiner from "@/data/useMiner";
+import type { PendingReward } from "@/data/usePendingReward";
 import { formatCurrency } from "@/utils";
-import useClaimMutation from "@/data/useClaimMutation";
-import { toast } from "react-hot-toast";
 
-const MinerDisplay = () => {
+const MinerDisplay = ({
+  claimReward,
+  handleClaimReward,
+}: {
+  claimReward: PendingReward[];
+  handleClaimReward: () => void;
+}) => {
   const { data: minerData, isLoading, isError } = useMiner();
-  const { claimReward } = useClaimMutation();
-  const { mutate, isPending } = claimReward;
+
+  const totalReward = formatCurrency(
+    claimReward.reduce((sum, item) => sum + item.pending_reward, 0),
+    2
+  );
 
   if (isLoading)
     return (
@@ -41,20 +49,6 @@ const MinerDisplay = () => {
 
   const totalSpeed =
     minerData?.reduce((sum, item) => sum + item.total_speed, 0) || 0;
-
-  const handleClaim = () => {
-    mutate(undefined, {
-      onSuccess: () => {
-        toast.success("Reward claimed successfully!");
-      },
-      onError: (error) => {
-        toast.error(
-          "Failed to claim reward: " +
-            (error instanceof Error ? error.message : "Unknown error")
-        );
-      },
-    });
-  };
 
   return (
     <section className="bg-white rounded-xl border border-black shadow-[4px_4px_black] px-4 py-5 w-full mt-5">
@@ -85,10 +79,10 @@ const MinerDisplay = () => {
           })}
         </div>
 
-        <button type="button">
+        {/* <button type="button">
           <p className="text-black dm-mono-medium text-sm">View all</p>
           <hr className="border border-black" />
-        </button>
+        </button> */}
       </div>
 
       <div className="flex items-center justify-center relative mt-12 mb-9">
@@ -121,15 +115,14 @@ const MinerDisplay = () => {
               <Loader />
             </div>
 
-            <p className="dm-mono-medium text-2xl">{formatCurrency(2342, 2)}</p>
+            <p className="dm-mono-medium text-2xl">{totalReward}</p>
           </div>
         </div>
 
         <button
           type="button"
-          onClick={handleClaim}
-          disabled={isPending}
-          className="border border-black bg-[#6F9B6F] text-sm dm-mono-medium shadow-[5px_4px_black] py-3 w-full rounded-xl text-[#505050] transition-all will-change-auto ease-linear duration-75 active:shadow-none active:translate-x-[5px] active:translate-y-[4px]"
+          onClick={handleClaimReward}
+          className="border border-black bg-[#ABFF83] text-sm dm-mono-medium shadow-[5px_4px_black] py-3 w-full rounded-xl transition-all will-change-auto ease-linear duration-75 active:shadow-none active:translate-x-[5px] active:translate-y-[4px]"
         >
           Claim
         </button>

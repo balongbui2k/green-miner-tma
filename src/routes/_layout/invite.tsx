@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import DailyTasks from "@/components/ui/invite/daily-tasks";
 import Earning from "@/components/ui/invite/earning";
 import useFriends from "@/data/useFriends";
+import Header from "@/components/header";
 
 export const Route = createFileRoute("/_layout/invite")({
   component: Invite,
@@ -50,6 +51,8 @@ function Invite() {
       style={{ height: listHeight }}
       className="overflow-y-auto scroll-smooth no-scrollbar"
     >
+      <Header />
+
       <div className="px-4 py-14">
         <Earning friendData={friendsData} />
         <DailyTasks friendList={friendList} />
