@@ -33,7 +33,7 @@ const BottomModal = ({
 
           {/* Modal */}
           <motion.section
-            className="absolute bottom-4 left-4 right-4 bg-white rounded-xl shadow-lg py-8 px-10"
+            className="absolute bottom-10 left-4 right-4 bg-white rounded-xl shadow-lg py-8 px-10"
             initial="hidden"
             animate="visible"
             exit="exit"

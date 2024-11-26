@@ -1,62 +1,49 @@
-import useMissionsMutation from "@/data/useMissionMutation.ts";
-import useMissions, { type Mission } from "@/data/useMissions.ts";
-import { cn } from "@/utils/index.tsx";
+import { Logo } from "@/components/icon";
+import useFriends from "@/data/useFriends";
+import miner from "@/assets/images/miner.png";
 
 const DailyTasks = () => {
-  const { data: dailyTasks } = useMissions();
-  const { doMission } = useMissionsMutation();
+  const { data: friendsData } = useFriends();
 
-  const handleDoMission = (mission: Mission) => {
-    let confirmed = false;
-
-    confirmed = window.confirm(`Do you want to open "${mission.action_link}"?`);
-    if (confirmed) {
-      window.open(mission.action_link, "_blank");
-      doMission.mutate({ missionId: mission.id });
-    }
-  };
+  const friendData = friendsData?.friends;
 
   return (
-    <div className="bg-white border border-black rounded-xl py-3 px-4 items-center shadow-[4px_4px_black] w-full mt-6 space-y-4">
-      <h1 className="dm-mono-medium text-sm text-black">Daily Task:</h1>
+    <div className="bg-white border border-black rounded-xl py-3 items-center shadow-[4px_4px_black] w-full mt-6 space-y-4">
+      <h1 className="dm-mono-medium text-sm text-black px-8">Friends List:</h1>
 
-      {dailyTasks?.map((task) => {
+      <hr className="border border-black mx-4" />
+
+      {!friendData && (
+        <p className="text-sm dm-mono-medium px-8 text-center">
+          You don't have any friends?
+          <br />
+          Let's build connections to earn more tokens!
+        </p>
+      )}
+      {friendData?.map((friend) => {
+        const friendName =
+          friend.username || `${friend.firstname + friend.lastname}`;
         return (
           <div
-            key={task.id}
-            className="bg-white border border-black rounded-xl shadow-[4px_4px_black] flex items-center justify-between px-1.5 py-3"
+            key={friend.id}
+            className="bg-white flex items-center justify-between py-3 px-7"
           >
             <div className="flex items-center gap-x-3">
               <img
-                src={task.image}
-                alt="image"
-                className="bg-white border border-black rounded-xl shadow-[3px_3px_black] w-10 h-10"
+                src={friend?.photo_url || miner}
+                alt="miner image"
+                className="bg-white border border-black rounded-xl shadow-[3px_3px_black] "
                 draggable={false}
               />
-
-              <div className="flex flex-col">
-                <span className="dm-mono-medium text-xs">{task.project}</span>
-                <span className="dm-mono-light text-[8px] w-40">
-                  {task.content}
-                </span>
-              </div>
+              <p className="text-sm dm-mono-medium">{friendName}</p>
             </div>
 
-            <button
-              type="button"
-              disabled={doMission.isPending}
-              onClick={
-                !task.is_completed ? () => handleDoMission(task) : undefined
-              }
-              className={cn(
-                "dm-mono-medium text-[11px] rounded-[10px] border border-black",
-                task.is_completed === true
-                  ? "bg-[#E2E2E2] p-1.5"
-                  : "bg-[#43FF46] py-1 px-2.5 transition-all ease-linear duration-75 shadow-[3px_3px_black] active:shadow-none active:translate-x-[3px] active:translate-y-[3px]"
-              )}
-            >
-              {task.is_completed === true ? "Connected" : "Connect"}
-            </button>
+            <div className="flex items-center gap-x-2">
+              <span className="bg-[#ABFF83] rounded-full shadow-[2px_0.5px_black] border border-black z-[1] px-1 py-[3px] w-fit">
+                <Logo width={10} height={12} />
+              </span>
+              <p className="text-base dm-mono-medium">+{friend.bonus || 0}</p>
+            </div>
           </div>
         );
       })}
