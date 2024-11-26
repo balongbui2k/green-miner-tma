@@ -2,7 +2,7 @@ import { QUERY_KEY } from "@/data/keys.ts";
 import axiosInstance from "@/utils/axios-instance.ts";
 import { useQuery } from "@tanstack/react-query";
 
-type Friend = {
+export type Friend = {
   id: number;
   firstname: string;
   lastname: string;
@@ -14,7 +14,7 @@ type Friend = {
   bonus: string | null;
 };
 
-type Friends = {
+export type Friends = {
   total_bonus: number;
   friends: Friend[];
 };
@@ -27,7 +27,6 @@ export const fetchFriends = async () => {
     if (res.status !== 200) {
       throw new Error("Error while fetching friends");
     }
-    console.log("🚀 ~ fetchFriends ~ res:", res);
     return res.data;
   } catch (error) {
     console.debug("🚀 ===== error:", error);
