@@ -9,7 +9,7 @@ const DailyTasks = ({ friendList }: { friendList: Friend[] | undefined }) => {
 
       <hr className="border border-black mx-4" />
 
-      {!friendList ? (
+      {!friendList?.length ? (
         <p className="text-sm dm-mono-medium px-8 text-center">
           You don't have any friends?
           <br />
