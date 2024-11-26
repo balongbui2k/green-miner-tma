@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Earning from "@/components/ui/invite/earning.tsx";
-import DailyTasks from "@/components/ui/invite/daily-tasks.tsx";
-import { useRef, useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import DailyTasks from "@/components/ui/invite/daily-tasks";
+import Earning from "@/components/ui/invite/earning";
+import useFriends from "@/data/useFriends";
 
 export const Route = createFileRoute("/_layout/invite")({
   component: Invite,
@@ -10,6 +11,8 @@ export const Route = createFileRoute("/_layout/invite")({
 function Invite() {
   const listRef = useRef<HTMLDivElement | null>(null);
   const [listHeight, setListHeight] = useState<string>("auto");
+
+  const { data: friendsData, isLoading } = useFriends();
 
   useEffect(() => {
     const updateHeight = () => {
@@ -35,6 +38,12 @@ function Invite() {
     };
   }, []);
 
+  if (isLoading) {
+    return <p className="text-white dm-mono-medium items-center">Loading...</p>;
+  }
+
+  const friendList = friendsData?.friends;
+
   return (
     <section
       ref={listRef}
@@ -42,9 +51,8 @@ function Invite() {
       className="overflow-y-auto scroll-smooth no-scrollbar"
     >
       <div className="px-4 py-14">
-        <Earning />
-
-        <DailyTasks />
+        <Earning friendData={friendsData} />
+        <DailyTasks friendList={friendList} />
       </div>
     </section>
   );

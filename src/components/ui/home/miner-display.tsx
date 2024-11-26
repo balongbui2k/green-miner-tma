@@ -95,6 +95,7 @@ const MinerDisplay = () => {
         <img
           src={cloudMining}
           alt="mining image"
+          draggable="false"
           className="z-[1] object-cover"
           loading="lazy"
         />
