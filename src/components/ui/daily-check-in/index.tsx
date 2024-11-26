@@ -1,28 +1,39 @@
 import { Logo } from "@/components/icon";
-import useCheckInStatus, { DAILY_REWARDS } from "@/data/useCheckIn";
 import useCheckInMutation from "@/data/useCheckInMutation";
 import { cn } from "@/utils";
 import calendarLayer from "@/assets/images/calendar-layer-2.png";
 import logoLayout from "@/assets/images/logo-layout.png";
 import leftLayer from "@/assets/images/left-big-streak-layer.png";
 import rightLayer from "@/assets/images/right-big-streak-layer.png";
+import useProfile from "@/data/useProfile";
+
+export const DAILY_REWARDS = [
+  { day: 1, isSpecial: false, reward: 500 },
+  { day: 2, isSpecial: false, reward: 1000 },
+  { day: 3, isSpecial: false, reward: 2000 },
+  { day: 4, isSpecial: false, reward: 3000 },
+  { day: 5, isSpecial: false, reward: 4000 },
+  { day: 6, isSpecial: false, reward: 5000 },
+  { day: 7, isSpecial: true, reward: 15000 }, // Big day reward
+];
 
 const CheckIn = () => {
-  const { data: checkInStatus, isLoading } = useCheckInStatus();
+  const { data: profile } = useProfile();
   const { checkIn } = useCheckInMutation();
 
-  if (isLoading) return <p>Preparing...</p>;
-
-  const handleCheckIn = () => {
-    checkIn.mutate();
-    return;
+  const handleCheckIn = async () => {
+    try {
+      await checkIn.mutateAsync();
+    } catch (error) {
+      console.error("Error while checking in:", error);
+    }
   };
 
   return (
     <div className="grid grid-cols-2 gap-5 w-full px-6">
       {DAILY_REWARDS.map((reward, index) => {
-        const checkedIn = checkInStatus
-          ? Boolean(index + 1 <= (checkInStatus.streak || 0))
+        const checkedIn = profile
+          ? Boolean(index + 1 <= (profile.streak || 0))
           : false;
 
         return (
@@ -36,9 +47,7 @@ const CheckIn = () => {
                 ? "shadow-none opacity-20"
                 : "transition-all ease-linear duration-75 active:shadow-none active:translate-x-[5px] active:translate-y-[5px]"
             )}
-            onClick={
-              index === checkInStatus?.streak ? handleCheckIn : undefined
-            }
+            onClick={handleCheckIn}
           >
             <img
               src={calendarLayer}

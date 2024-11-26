@@ -2,10 +2,11 @@ import BottomModal from "@/components/common/bottom-modal";
 import { TabPanel } from "@/components/common/custom-tab-list";
 import { Tab } from "@/components/common/custom-tab-list";
 import { Tabs } from "@/components/common/custom-tab-list";
+import Header from "@/components/header";
 import CheckIn from "@/components/ui/daily-check-in";
 import LeaderBoard from "@/components/ui/daily-check-in/leader-board";
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/_layout/daily-check-in")({
   component: DailyCheckIn,
@@ -13,6 +14,9 @@ export const Route = createFileRoute("/_layout/daily-check-in")({
 
 function DailyCheckIn() {
   const [isOpenBottomModal, setIsOpenBottomModal] = useState(false);
+
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const [listHeight, setListHeight] = useState<string>("auto");
 
   const urlParams = new URLSearchParams(window.location.search);
   const tabParam = urlParams.get("tab");
@@ -28,12 +32,41 @@ function DailyCheckIn() {
     setIsOpenBottomModal(true);
   };
 
+  useEffect(() => {
+    const updateHeight = () => {
+      if (listRef.current) {
+        const windowHeight = window.innerHeight;
+        const listTop = listRef.current.getBoundingClientRect().top;
+        const navBarHeight = 90;
+        const newHeight = Math.round(windowHeight - listTop - navBarHeight);
+        setListHeight(`${newHeight}px`);
+      }
+    };
+
+    updateHeight();
+
+    window.addEventListener("resize", updateHeight);
+
+    const resizeObserver = new ResizeObserver(updateHeight);
+    if (listRef.current) resizeObserver.observe(listRef.current);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+      resizeObserver.disconnect();
+    };
+  }, []);
+
   return (
-    <section className="relative">
+    <section
+      ref={listRef}
+      style={{ height: listHeight }}
+      className="overflow-y-auto no-scrollbar"
+    >
+      <Header handleOpenBottomModal={handleOpenBottomModal} />
+
       <Tabs
         activeTabIndex={activeTabIndex}
         setActiveTabIndex={setActiveTabIndex}
-        handleOpenBottomModal={handleOpenBottomModal}
       >
         <Tab>Daily Check-in</Tab>
         <Tab>Leader board</Tab>
@@ -41,12 +74,12 @@ function DailyCheckIn() {
         <TabPanel>
           <CheckIn />
         </TabPanel>
+
         <TabPanel>
           <LeaderBoard />
         </TabPanel>
       </Tabs>
 
-      {/* Bottom Modal */}
       <BottomModal
         title="How it works?"
         isOpen={isOpenBottomModal}

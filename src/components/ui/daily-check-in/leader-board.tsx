@@ -88,14 +88,14 @@ const LeaderBoard = () => {
                       src={firstPrize}
                       alt="first prize"
                       draggable="false"
-                      className="object-cover"
+                      className="object-contain"
                     />
                   )}
                   {index === 1 && (
                     <img
                       src={secondPrize}
                       alt="second prize"
-                      className="mr-0.5 object-cover"
+                      className="mr-0.5 object-contain"
                       draggable="false"
                     />
                   )}
@@ -103,7 +103,7 @@ const LeaderBoard = () => {
                     <img
                       src={thirdPrize}
                       alt="third prize"
-                      className="mr-1.5 object-cover"
+                      className="mr-1.5 object-contain"
                       draggable="false"
                     />
                   )}

@@ -4,20 +4,23 @@ import { useQuery } from "@tanstack/react-query";
 
 export interface Profile {
   id: number;
-  age: number;
-  balance: number;
-  created_at: string;
-  firstname: string;
-  is_premium: boolean;
-  lastname: string;
-  photo_url: string | null;
-  ref_by: string | null;
-  ref_count: number;
-  reward_for_referrer: string | null;
   telegram_id: number;
-  updated_at: string;
+  firstname: string;
+  lastname: string;
   username: string;
+  photo_url: string | undefined;
   wallet_address: string | null;
+  is_premium: boolean;
+  age: number;
+  ref_count: number;
+  ref_by: string | null;
+  reward_for_referrer: string | null;
+  balance: number;
+  affiliate_balance: number;
+  last_checkin: string;
+  streak: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export const fetchProfile = async (): Promise<Profile | undefined> => {

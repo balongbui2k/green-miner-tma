@@ -4,13 +4,13 @@ import type { Friend } from "@/data/useFriends";
 
 const DailyTasks = ({ friendList }: { friendList: Friend[] | undefined }) => {
   return (
-    <div className="bg-white border border-black rounded-xl py-3 items-center shadow-[4px_4px_black] w-full mt-6 space-y-4">
-      <h1 className="dm-mono-medium text-sm text-black px-8">Friends List:</h1>
+    <div className="bg-white border border-black rounded-xl p-4 items-center shadow-[4px_4px_black] w-full mt-6 space-y-4">
+      <h1 className="dm-mono-medium text-sm text-black">Friends List:</h1>
 
-      <hr className="border border-black mx-4" />
+      <hr className="border border-black" />
 
       {!friendList?.length ? (
-        <p className="text-sm dm-mono-medium px-8 text-center">
+        <p className="text-sm dm-mono-medium text-center">
           You don't have any friends?
           <br />
           Let's build connections to earn more tokens!
@@ -22,7 +22,7 @@ const DailyTasks = ({ friendList }: { friendList: Friend[] | undefined }) => {
           return (
             <div
               key={friend.id}
-              className="bg-white flex items-center justify-between py-3 px-7"
+              className="bg-white flex items-center justify-between py-2"
             >
               <div className="flex items-center gap-x-3">
                 <img

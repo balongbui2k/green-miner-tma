@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import MinerPlanCard from "@/components/common/miner-plan-card.tsx";
 import { useRef, useState, useEffect } from "react";
+import Header from "@/components/header";
 
 export const Route = createFileRoute("/_layout/rent-miner")({
   component: RentMiner,
@@ -38,9 +39,11 @@ function RentMiner() {
     <section
       ref={listRef}
       style={{ height: listHeight }}
-      className="p-7 overflow-y-auto scroll-smooth no-scrollbar"
+      className=" overflow-y-auto scroll-smooth no-scrollbar"
     >
-      <div className="space-y-7">
+      <Header />
+
+      <div className="space-y-7 p-5">
         <MinerPlanCard />
       </div>
     </section>

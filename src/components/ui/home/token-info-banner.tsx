@@ -1,9 +1,8 @@
 import headerLayout from "@/assets/images/header-layout.png";
 import { Logo, TonIcon } from "@/components/icon.tsx";
-import type { Profile } from "@/data/useProfile.ts";
 import { formatCurrency } from "@/utils/index.tsx";
 
-const TokenInfoBanner = ({ profile }: { profile: Profile | undefined }) => {
+const TokenInfoBanner = ({ userBalance }: { userBalance: number }) => {
   return (
     <div className="bg-white rounded-xl border border-black shadow-[4px_4px_black] p-4 w-full relative">
       <img
@@ -14,7 +13,7 @@ const TokenInfoBanner = ({ profile }: { profile: Profile | undefined }) => {
 
       <div className="flex items-start justify-between mb-5">
         <p className="dm-mono-medium text-2xl flex flex-col">
-          {profile ? formatCurrency(profile?.balance, 2) : "---"}
+          {formatCurrency(userBalance, 2)}
           <span className="text-[#A1A1A1] text-sm dm-mono-medium">$GREEN</span>
         </p>
 

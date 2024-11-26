@@ -8,14 +8,14 @@ const useCheckInMutation = () => {
 
   const checkIn = useMutation({
     mutationFn: async () => {
-      return axiosInstance.get(`api/v1/actions/checkin`);
+      return axiosInstance.post(`api/v1/actions/checkin`);
     },
     onSuccess: async ({ data }) => {
       await queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.FETCH_CHECK_IN_STATUS],
       });
       toast.success(
-        `Congratulations! You've successfully checked in and earned ${data.reward} RABBITS!`
+        `Congratulations! You've successfully checked in and earned ${data.reward} GREENS!`
       );
     },
     onError: async (data: any) => {
