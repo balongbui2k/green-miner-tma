@@ -72,8 +72,8 @@ const LeaderBoard = () => {
                   <div className="flex flex-col items-start ">
                     <p className="dm-mono-medium text-base">{userName}</p>
                     <p className="flex items-center gap-x-1.5">
-                      <span className="border border-black rounded-full px-[5px] py-1 bg-[#ABFF83] shadow-[3px_0.5px_black]">
-                        <Logo width={12} height={14} />
+                      <span className="border border-black rounded-full px-1 py-[3px] bg-[#ABFF83] shadow-[2px_0.5px_black]">
+                        <Logo width={10} height={12} />
                       </span>
                       <span className="dm-mono-medium text-xl">
                         {formatCurrency(user.balance, 2)}

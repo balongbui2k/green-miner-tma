@@ -19,7 +19,7 @@ function Home() {
       if (listRef.current) {
         const windowHeight = window.innerHeight;
         const listTop = listRef.current.getBoundingClientRect().top;
-        const navBarHeight = 96;
+        const navBarHeight = 90;
         const newHeight = Math.round(windowHeight - listTop - navBarHeight);
         setListHeight(`${newHeight}px`);
       }
