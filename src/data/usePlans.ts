@@ -12,6 +12,7 @@ export type Plan = {
   speed: number;
   stock: number;
   sold: number;
+  currency: string;
   updated_at: string;
 };
 

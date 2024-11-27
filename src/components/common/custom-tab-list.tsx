@@ -52,7 +52,7 @@ export const TabList: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   return (
-    <div className="flex items-center whitespace-nowrap gap-x-2 bg-[#73FF69] border-black border-b relative pl-5 pb-4 pt-3">
+    <div className="flex items-center whitespace-nowrap gap-x-2 bg-[#73FF69] h-20 border-black border-b relative pl-5 pb-2">
       {children}
     </div>
   );
@@ -62,7 +62,7 @@ export const Tab: React.FC<TabProps> = ({ children, isActive, onClick }) => {
   return (
     <button
       className={cn(
-        "w-fit bg-white border border-black rounded-xl py-2 px-5 shadow-[3px_3px_black] z-[2]",
+        "w-fit bg-white border border-black rounded-xl py-2 px-5 shadow-[3px_3px_black] z-[2] ease-linear duration-75",
         !isActive
           ? "active:translate-x-[3px] translate-y-[3px]"
           : "shadow-none mt-2 bg-[#DFDFDF]"

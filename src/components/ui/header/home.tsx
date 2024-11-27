@@ -83,7 +83,7 @@ const HomeHeader = ({ profile }: { profile: Profile | undefined }) => {
           </button>
         </section>
       ) : (
-        <div className="text-sm mt-3 flex items-center justify-center gap-x-2 z-[1]">
+        <div className="text-sm dm-mono-regular mt-3 flex items-center justify-center gap-x-2 z-[1]">
           {truncateAddress()}
 
           <button

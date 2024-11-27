@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Logo } from "@/components/icon";
 import useCheckInMutation from "@/data/useCheckInMutation";
 import { cn } from "@/utils";
@@ -21,20 +22,28 @@ const CheckIn = () => {
   const { data: profile } = useProfile();
   const { checkIn } = useCheckInMutation();
 
+  const [localStreak, setLocalStreak] = useState(profile?.streak || 0);
+  const [isCheckingIn, setIsCheckingIn] = useState(false);
+
   const handleCheckIn = async () => {
+    if (isCheckingIn) return;
+
+    setIsCheckingIn(true);
     try {
       await checkIn.mutateAsync();
+      setLocalStreak((prevStreak) => prevStreak + 1);
     } catch (error) {
       console.error("Error while checking in:", error);
+    } finally {
+      setIsCheckingIn(false);
     }
   };
 
   return (
     <div className="grid grid-cols-2 gap-5 w-full px-6">
       {DAILY_REWARDS.map((reward, index) => {
-        const checkedIn = profile
-          ? Boolean(index + 1 <= (profile.streak || 0))
-          : false;
+        const checkedIn = index + 1 <= localStreak;
+        const isDisabled = isCheckingIn || checkedIn || index > localStreak;
 
         return (
           <button
@@ -42,12 +51,13 @@ const CheckIn = () => {
             type="button"
             className={cn(
               "bg-white border-black border rounded-[11px] shadow-[5px_5px_black] flex flex-col items-center gap-2.5 relative",
-              index === 6 && "col-span-2 ",
+              index === 6 && "col-span-2",
               checkedIn
                 ? "shadow-none opacity-20"
                 : "transition-all ease-linear duration-75 active:shadow-none active:translate-x-[5px] active:translate-y-[5px]"
             )}
-            onClick={handleCheckIn}
+            onClick={!isDisabled ? handleCheckIn : undefined}
+            disabled={isDisabled}
           >
             <img
               src={calendarLayer}
