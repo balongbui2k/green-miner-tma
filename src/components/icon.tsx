@@ -296,3 +296,22 @@ export const CloseIcon = ({ size = 14 }) => (
     />
   </svg>
 );
+
+export const MinusIcon = ({ size = 12 }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 11 3"
+    fill="none"
+  >
+    <rect
+      x="0.672852"
+      y="0.86084"
+      width="10.009"
+      height="2.00179"
+      rx="1.0009"
+      fill="currentColor"
+    />
+  </svg>
+);

@@ -61,7 +61,10 @@ const LeaderBoard = () => {
               `${user.firstname + user.lastname}` || user.username;
 
             return (
-              <div className="bg-white flex items-center justify-between">
+              <div
+                key={user.id}
+                className="bg-white flex items-center justify-between"
+              >
                 <div className="flex items-center gap-x-3">
                   <img
                     src={miner}

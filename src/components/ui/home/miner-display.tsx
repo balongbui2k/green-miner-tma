@@ -122,7 +122,7 @@ const MinerDisplay = ({
         <button
           type="button"
           onClick={handleClaimReward}
-          className="border border-black bg-[#ABFF83] text-sm dm-mono-medium shadow-[5px_4px_black] py-3 w-full rounded-xl transition-all will-change-auto ease-linear duration-75 active:shadow-none active:translate-x-[5px] active:translate-y-[4px]"
+          className="border border-black bg-[#ABFF83] text-sm dm-mono-medium shadow-[4px_4px_black] py-3 w-full rounded-xl transition-all ease-linear duration-75 active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
         >
           Claim
         </button>
