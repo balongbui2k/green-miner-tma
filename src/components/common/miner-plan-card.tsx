@@ -1,4 +1,4 @@
-import { cn, formatCurrency } from "@/utils/index.tsx";
+import { cn } from "@/utils/index.tsx";
 import { useState } from "react";
 import usePlans, { type Plan } from "@/data/usePlans.ts";
 import eco from "@/assets/images/miner-plans/eco.png";
