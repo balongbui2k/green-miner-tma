@@ -39,5 +39,6 @@ export default function useProfile() {
   return useQuery({
     queryKey: [QUERY_KEY.FETCH_ACCOUNT_PROFILE],
     queryFn: () => fetchProfile(),
+    staleTime: 60 * 1000 * 5, // 5 minutes
   });
 }

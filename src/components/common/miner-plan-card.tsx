@@ -113,30 +113,32 @@ const MinerPlanCard = () => {
 
                   <div className="flex items-center justify-center">
                     <button
-                      className="border border-black bg-[#ABFF83] p-1 translate-x-4 rounded-full shadow-[2px_0.5px_black] active:shadow-none ease-linear duration-75"
+                      className="border border-black outline-none bg-[#ABFF83] p-1 translate-x-4 rounded-full shadow-[2px_0.5px_black] active:shadow-none ease-linear duration-75"
                       onClick={() => handleDecrement(miner.id)}
                     >
                       <MinusIcon />
                     </button>
-                    <p className="bg-white border border-black px-[30px] rounded-[10px] shadow-[0px_3px_black] dm-mono-medium text-xl">
+
+                    <p className="bg-white border border-black w-20 text-center rounded-[10px] shadow-[0px_3px_black] dm-mono-medium text-xl">
                       {amount[miner.id] || 1}
                     </p>
+
                     <button
-                      className="border border-black bg-[#ABFF83] p-1 -translate-x-4 rounded-full shadow-[2px_0.5px_black] active:shadow-none ease-linear duration-75"
+                      className="border border-black bg-[#ABFF83] outline-none p-1 -translate-x-4 rounded-full shadow-[2px_0.5px_black] active:shadow-none ease-linear duration-75"
                       onClick={() => handleIncrement(miner.id)}
                     >
                       <PlusIcon size={12} />
                     </button>
                   </div>
 
-                  <p className="dm-mono-light text-[7px] mt-1">
-                    Estimate Speed:{" "}
+                  <p className="dm-mono-light text-[7px] mt-1.5">
+                    Speed:{" "}
                     <span className="dm-mono-medium text-[#009C0D]">
                       ~{estimateSpeed} GH/z
                     </span>
                   </p>
 
-                  <p className="dm-mono-light text-[7px] mt-1">
+                  <p className="dm-mono-light text-[7px] mt-0.5">
                     Price:{" "}
                     <span className="dm-mono-medium text-[#009C0D]">
                       {price.toFixed(2)} {miner.currency}
@@ -186,7 +188,7 @@ const MinerPlanCard = () => {
                   onClick={() => handlePurchaseTON(miner)}
                   disabled={loading[miner.id]}
                   className={cn(
-                    "rounded-xl py-2.5 px-8 border z-[1] border-black text-xs dm-mono-medium text-black",
+                    "rounded-xl py-2 px-8 border z-[1] border-black text-xs dm-mono-medium text-black",
                     loading[miner.id]
                       ? "bg-[#B8B8B8]"
                       : "bg-[#43FF46] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all duration-75 ease-linear will-change-auto shadow-[3px_3px_black]"
@@ -197,7 +199,7 @@ const MinerPlanCard = () => {
                       <SpinIcon />
                     </span>
                   ) : (
-                    `Buy`
+                    "Buy"
                   )}
                 </button>
               </div>
