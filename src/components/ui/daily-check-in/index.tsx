@@ -19,10 +19,9 @@ export const DAILY_REWARDS = [
 ];
 
 const CheckIn = () => {
-  const { data: profile } = useProfile();
+  const { data: profile, refetch } = useProfile();
   const { checkIn } = useCheckInMutation();
 
-  const [localStreak, setLocalStreak] = useState(profile?.streak || 0);
   const [isCheckingIn, setIsCheckingIn] = useState(false);
 
   const handleCheckIn = async () => {
@@ -31,7 +30,7 @@ const CheckIn = () => {
     setIsCheckingIn(true);
     try {
       await checkIn.mutateAsync();
-      setLocalStreak((prevStreak) => prevStreak + 1);
+      await refetch();
     } catch (error) {
       console.error("Error while checking in:", error);
     } finally {
@@ -42,8 +41,9 @@ const CheckIn = () => {
   return (
     <div className="grid grid-cols-2 gap-5 w-full px-6">
       {DAILY_REWARDS.map((reward, index) => {
-        const checkedIn = index + 1 <= localStreak;
-        const isDisabled = isCheckingIn || checkedIn || index > localStreak;
+        const checkedIn = index + 1 <= (profile?.streak || 0);
+        const isDisabled =
+          isCheckingIn || checkedIn || index > (profile?.streak || 0);
 
         return (
           <button
