@@ -5,8 +5,9 @@ import { toast } from "react-hot-toast";
 import HomeHeader from "@/components/ui/header/home";
 import InviteHeader from "@/components/ui/header/invite";
 import RentMinerHeader from "@/components/ui/header/rent-miner";
-import DailyCheckInHeader from "./ui/header/daily-check-in";
+import DailyCheckInHeader from "@/components/ui/header/daily-check-in";
 import { cn } from "@/utils";
+import YourRigHeader from "@/components/ui/header/your-rig";
 
 const botName = import.meta.env.VITE_REACT_APP_BOT_NAME;
 
@@ -41,6 +42,8 @@ const Header = ({
         );
       case "/rent-miner":
         return <RentMinerHeader />;
+      case "/your-rig":
+        return <YourRigHeader />;
     }
   };
 

@@ -1,6 +1,6 @@
 import { cn } from "@/utils/index.tsx";
 import { CalendarIcon, CartIcon, HomeIcon, PlusIcon } from "./icon.tsx";
-import { useNavigate, useRouterState } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEY } from "@/data/keys.ts";
 
@@ -40,21 +40,21 @@ const BottomNavigator = () => {
             className={cn(
               "rounded-xl border border-black p-2.5 flex items-center outline-none",
               currentRoute === path &&
-                "bg-[#43FF46] rounded-xl border border-black transition-all will-change-auto ease-linear duration-75 shadow-[3px_3px_black]"
+                "bg-[#43FF46] rounded-xl border border-black transition ease-linear duration-75 shadow-[3px_3px_black]"
             )}
           >
-            <span className="text-black ">{icon}</span>
+            <span className="text-black">{icon}</span>
           </button>
         );
       })}
 
-      <button
-        type="button"
-        className="text-sm dm-mono-medium bg-[#43FF46] rounded-xl py-2.5 px-5 border border-black transition-all ease-linear duration-75
+      <Link
+        to="/your-rig"
+        className="text-sm dm-mono-medium bg-[#43FF46] rounded-xl py-2.5 px-5 border border-black transition ease-linear duration-75
         shadow-[3px_3px_black] active:shadow-none active:translate-x-[3px] active:translate-y-[3px]"
       >
         Your rig
-      </button>
+      </Link>
     </nav>
   );
 };

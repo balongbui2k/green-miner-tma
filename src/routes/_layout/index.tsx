@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import TokenInfoBanner from "@/components/ui/home/token-info-banner.tsx";
 import useProfile from "@/data/useProfile.ts";
@@ -7,12 +7,15 @@ import Header from "@/components/header";
 import usePendingReward, { type PendingReward } from "@/data/usePendingReward";
 import useClaimMutation from "@/data/useClaimMutation";
 import { toast } from "react-hot-toast";
+import useDeviceHeightObserver from "@/hooks/useDeviceHeightObserver";
 
 export const Route = createFileRoute("/_layout/")({
   component: Home,
 });
 
 function Home() {
+  const { listHeight, listRef } = useDeviceHeightObserver();
+
   const { data: profile } = useProfile();
   const { data: pendingReward } = usePendingReward();
   const { claimReward } = useClaimMutation();
@@ -50,33 +53,6 @@ function Home() {
       toast.error("No rewards available to claim.");
     }
   };
-
-  const listRef = useRef<HTMLDivElement | null>(null);
-  const [listHeight, setListHeight] = useState<string>("auto");
-
-  useEffect(() => {
-    const updateHeight = () => {
-      if (listRef.current) {
-        const windowHeight = window.innerHeight;
-        const listTop = listRef.current.getBoundingClientRect().top;
-        const navBarHeight = 90;
-        const newHeight = Math.round(windowHeight - listTop - navBarHeight);
-        setListHeight(`${newHeight}px`);
-      }
-    };
-
-    updateHeight();
-
-    window.addEventListener("resize", updateHeight);
-
-    const resizeObserver = new ResizeObserver(updateHeight);
-    if (listRef.current) resizeObserver.observe(listRef.current);
-
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-      resizeObserver.disconnect();
-    };
-  }, []);
 
   return (
     <section

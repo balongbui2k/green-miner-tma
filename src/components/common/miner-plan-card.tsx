@@ -119,7 +119,7 @@ const MinerPlanCard = () => {
                       <MinusIcon />
                     </button>
 
-                    <p className="bg-white border border-black w-20 text-center rounded-[10px] shadow-[0px_3px_black] dm-mono-medium text-xl">
+                    <p className="bg-white border border-black w-[88px] text-center rounded-[10px] shadow-[0px_3px_black] dm-mono-medium text-xl">
                       {amount[miner.id] || 1}
                     </p>
 
@@ -188,10 +188,10 @@ const MinerPlanCard = () => {
                   onClick={() => handlePurchaseTON(miner)}
                   disabled={loading[miner.id]}
                   className={cn(
-                    "rounded-xl py-2 px-8 border z-[1] border-black text-xs dm-mono-medium text-black",
+                    "rounded-xl py-2 px-9 border z-[1] border-black text-sm dm-mono-medium text-black",
                     loading[miner.id]
                       ? "bg-[#B8B8B8]"
-                      : "bg-[#43FF46] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all duration-75 ease-linear will-change-auto shadow-[3px_3px_black]"
+                      : "bg-[#43FF46] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition duration-75 ease-linear will-change-auto shadow-[3px_3px_black]"
                   )}
                 >
                   {loading[miner.id] ? (

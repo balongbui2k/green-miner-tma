@@ -1,13 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
-import MinerPlanCard from "@/components/common/miner-plan-card.tsx";
 import Header from "@/components/header";
 import useDeviceHeightObserver from "@/hooks/useDeviceHeightObserver";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/_layout/rent-miner")({
-  component: RentMiner,
+export const Route = createFileRoute("/_layout/your-rig")({
+  component: RouteComponent,
 });
 
-function RentMiner() {
+function RouteComponent() {
   const { listHeight, listRef } = useDeviceHeightObserver();
   return (
     <section
@@ -18,7 +17,9 @@ function RentMiner() {
       <Header />
 
       <div className="space-y-7 p-5">
-        <MinerPlanCard />
+        <p className="dm-mono-medium text-sm text-center mt-44">
+          This feature is being updated, <br /> please wait!
+        </p>
       </div>
     </section>
   );

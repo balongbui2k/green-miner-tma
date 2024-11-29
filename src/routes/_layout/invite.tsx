@@ -1,43 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useRef, useEffect } from "react";
 import DailyTasks from "@/components/ui/invite/daily-tasks";
 import Earning from "@/components/ui/invite/earning";
 import useFriends from "@/data/useFriends";
 import Header from "@/components/header";
+import useDeviceHeightObserver from "@/hooks/useDeviceHeightObserver";
 
 export const Route = createFileRoute("/_layout/invite")({
   component: Invite,
 });
 
 function Invite() {
-  const listRef = useRef<HTMLDivElement | null>(null);
-  const [listHeight, setListHeight] = useState<string>("auto");
+  const { listHeight, listRef } = useDeviceHeightObserver();
 
   const { data: friendsData, isLoading } = useFriends();
-
-  useEffect(() => {
-    const updateHeight = () => {
-      if (listRef.current) {
-        const windowHeight = window.innerHeight;
-        const listTop = listRef.current.getBoundingClientRect().top;
-        const navBarHeight = 90;
-        const newHeight = Math.round(windowHeight - listTop - navBarHeight);
-        setListHeight(`${newHeight}px`);
-      }
-    };
-
-    updateHeight();
-
-    window.addEventListener("resize", updateHeight);
-
-    const resizeObserver = new ResizeObserver(updateHeight);
-    if (listRef.current) resizeObserver.observe(listRef.current);
-
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-      resizeObserver.disconnect();
-    };
-  }, []);
 
   if (isLoading) {
     return <p className="text-white dm-mono-medium items-center">Loading...</p>;

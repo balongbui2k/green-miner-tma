@@ -45,7 +45,7 @@ const BottomModal = ({
             <div className="flex justify-between items-center dm-mono-medium">
               <h2 className="text-xl">{title}</h2>
               <button
-                className="p-1.5 text-black bg-[#43FF46] rounded-lg border transition-all ease-linear duration-75 will-change-auto border-black shadow-[3px_3px_black]
+                className="p-1.5 text-black bg-[#43FF46] rounded-lg border transition ease-linear duration-75 will-change-auto border-black shadow-[3px_3px_black]
                 active:shadow-none active:translate-x-[3px] active:translate-y-[3px]"
                 onClick={handleCloseBottomModal}
               >

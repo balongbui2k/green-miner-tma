@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root.tsx'
 import { Route as LayoutImport } from './routes/_layout.tsx'
 import { Route as LayoutIndexImport } from './routes/_layout/index.tsx'
+import { Route as LayoutYourRigImport } from './routes/_layout/your-rig.tsx'
 import { Route as LayoutRentMinerImport } from './routes/_layout/rent-miner.tsx'
 import { Route as LayoutInviteImport } from './routes/_layout/invite.tsx'
 import { Route as LayoutDailyCheckInImport } from './routes/_layout/daily-check-in.tsx'
@@ -27,6 +28,12 @@ const LayoutRoute = LayoutImport.update({
 const LayoutIndexRoute = LayoutIndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutYourRigRoute = LayoutYourRigImport.update({
+  id: '/your-rig',
+  path: '/your-rig',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -80,6 +87,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutRentMinerImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/your-rig': {
+      id: '/_layout/your-rig'
+      path: '/your-rig'
+      fullPath: '/your-rig'
+      preLoaderRoute: typeof LayoutYourRigImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/': {
       id: '/_layout/'
       path: '/'
@@ -96,6 +110,7 @@ interface LayoutRouteChildren {
   LayoutDailyCheckInRoute: typeof LayoutDailyCheckInRoute
   LayoutInviteRoute: typeof LayoutInviteRoute
   LayoutRentMinerRoute: typeof LayoutRentMinerRoute
+  LayoutYourRigRoute: typeof LayoutYourRigRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
 }
 
@@ -103,6 +118,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutDailyCheckInRoute: LayoutDailyCheckInRoute,
   LayoutInviteRoute: LayoutInviteRoute,
   LayoutRentMinerRoute: LayoutRentMinerRoute,
+  LayoutYourRigRoute: LayoutYourRigRoute,
   LayoutIndexRoute: LayoutIndexRoute,
 }
 
@@ -114,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/daily-check-in': typeof LayoutDailyCheckInRoute
   '/invite': typeof LayoutInviteRoute
   '/rent-miner': typeof LayoutRentMinerRoute
+  '/your-rig': typeof LayoutYourRigRoute
   '/': typeof LayoutIndexRoute
 }
 
@@ -121,6 +138,7 @@ export interface FileRoutesByTo {
   '/daily-check-in': typeof LayoutDailyCheckInRoute
   '/invite': typeof LayoutInviteRoute
   '/rent-miner': typeof LayoutRentMinerRoute
+  '/your-rig': typeof LayoutYourRigRoute
   '/': typeof LayoutIndexRoute
 }
 
@@ -130,20 +148,28 @@ export interface FileRoutesById {
   '/_layout/daily-check-in': typeof LayoutDailyCheckInRoute
   '/_layout/invite': typeof LayoutInviteRoute
   '/_layout/rent-miner': typeof LayoutRentMinerRoute
+  '/_layout/your-rig': typeof LayoutYourRigRoute
   '/_layout/': typeof LayoutIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/daily-check-in' | '/invite' | '/rent-miner' | '/'
+  fullPaths:
+    | ''
+    | '/daily-check-in'
+    | '/invite'
+    | '/rent-miner'
+    | '/your-rig'
+    | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/daily-check-in' | '/invite' | '/rent-miner' | '/'
+  to: '/daily-check-in' | '/invite' | '/rent-miner' | '/your-rig' | '/'
   id:
     | '__root__'
     | '/_layout'
     | '/_layout/daily-check-in'
     | '/_layout/invite'
     | '/_layout/rent-miner'
+    | '/_layout/your-rig'
     | '/_layout/'
   fileRoutesById: FileRoutesById
 }
@@ -175,6 +201,7 @@ export const routeTree = rootRoute
         "/_layout/daily-check-in",
         "/_layout/invite",
         "/_layout/rent-miner",
+        "/_layout/your-rig",
         "/_layout/"
       ]
     },
@@ -188,6 +215,10 @@ export const routeTree = rootRoute
     },
     "/_layout/rent-miner": {
       "filePath": "_layout/rent-miner.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/your-rig": {
+      "filePath": "_layout/your-rig.tsx",
       "parent": "/_layout"
     },
     "/_layout/": {

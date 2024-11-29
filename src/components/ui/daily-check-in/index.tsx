@@ -54,7 +54,7 @@ const CheckIn = () => {
               index === 6 && "col-span-2",
               checkedIn
                 ? "shadow-none opacity-20"
-                : "transition-all ease-linear duration-75 active:shadow-none active:translate-x-[5px] active:translate-y-[5px]"
+                : "transition ease-linear duration-75 active:shadow-none active:translate-x-[5px] active:translate-y-[5px]"
             )}
             onClick={!isDisabled ? handleCheckIn : undefined}
             disabled={isDisabled}
