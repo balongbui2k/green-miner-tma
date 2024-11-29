@@ -76,7 +76,7 @@ const HomeHeader = ({ profile }: { profile: Profile | undefined }) => {
           <button
             type="button"
             onClick={handleConnectWallet}
-            className="dm-mono-medium w-fit text-xs bg-white border border-black rounded-xl shadow-[3px_3px_black] z-[1] flex items-center justify-center gap-x-2.5 py-2 px-2.5 mt-5 transition-all ease-linear duration-75 active:shadow-none active:translate-x-[3px] active:translate-y-[3px]"
+            className="dm-mono-medium w-fit text-xs bg-white border border-black rounded-xl shadow-[3px_3px_black] z-[1] flex items-center justify-center gap-x-2.5 py-2 px-2.5 mt-5 transition ease-linear duration-75 active:shadow-none active:translate-x-[3px] active:translate-y-[3px]"
           >
             <WalletIcon />
             Connect Wallet

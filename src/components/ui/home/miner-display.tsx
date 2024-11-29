@@ -7,7 +7,6 @@ import cloudMining from "@/assets/images/mining.gif";
 import cloudMiningLayer from "@/assets/images/cloud-mining.png";
 import useMiner from "@/data/useMiner";
 import type { PendingReward } from "@/data/usePendingReward";
-import { formatCurrency } from "@/utils";
 
 const MinerDisplay = ({
   claimReward,
@@ -18,9 +17,9 @@ const MinerDisplay = ({
 }) => {
   const { data: minerData, isLoading, isError } = useMiner();
 
-  const totalReward = formatCurrency(
-    claimReward.reduce((sum, item) => sum + item.pending_reward, 0),
-    2
+  const totalReward = claimReward.reduce(
+    (sum, item) => sum + item.pending_reward,
+    0
   );
 
   if (isLoading)
@@ -115,14 +114,14 @@ const MinerDisplay = ({
               <Loader />
             </div>
 
-            <p className="dm-mono-medium text-2xl">{totalReward}</p>
+            <p className="dm-mono-medium text-2xl">{totalReward.toFixed(2)}</p>
           </div>
         </div>
 
         <button
           type="button"
           onClick={handleClaimReward}
-          className="border border-black bg-[#ABFF83] text-sm dm-mono-medium shadow-[4px_4px_black] py-3 w-full rounded-xl transition-all ease-linear duration-75 active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
+          className="border border-black bg-[#ABFF83] text-sm dm-mono-medium shadow-[4px_4px_black] py-3 w-full rounded-xl transition ease-linear duration-75 active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
         >
           Claim
         </button>

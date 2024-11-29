@@ -5,8 +5,9 @@ import { Tabs } from "@/components/common/custom-tab-list";
 import Header from "@/components/header";
 import CheckIn from "@/components/ui/daily-check-in";
 import LeaderBoard from "@/components/ui/daily-check-in/leader-board";
+import useDeviceHeightObserver from "@/hooks/useDeviceHeightObserver";
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 export const Route = createFileRoute("/_layout/daily-check-in")({
   component: DailyCheckIn,
@@ -15,8 +16,7 @@ export const Route = createFileRoute("/_layout/daily-check-in")({
 function DailyCheckIn() {
   const [isOpenBottomModal, setIsOpenBottomModal] = useState(false);
 
-  const listRef = useRef<HTMLDivElement | null>(null);
-  const [listHeight, setListHeight] = useState<string>("auto");
+  const { listHeight, listRef } = useDeviceHeightObserver();
 
   const urlParams = new URLSearchParams(window.location.search);
   const tabParam = urlParams.get("tab");
@@ -31,30 +31,6 @@ function DailyCheckIn() {
   const handleOpenBottomModal = () => {
     setIsOpenBottomModal(true);
   };
-
-  useEffect(() => {
-    const updateHeight = () => {
-      if (listRef.current) {
-        const windowHeight = window.innerHeight;
-        const listTop = listRef.current.getBoundingClientRect().top;
-        const navBarHeight = 90;
-        const newHeight = Math.round(windowHeight - listTop - navBarHeight);
-        setListHeight(`${newHeight}px`);
-      }
-    };
-
-    updateHeight();
-
-    window.addEventListener("resize", updateHeight);
-
-    const resizeObserver = new ResizeObserver(updateHeight);
-    if (listRef.current) resizeObserver.observe(listRef.current);
-
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-      resizeObserver.disconnect();
-    };
-  }, []);
 
   return (
     <section
